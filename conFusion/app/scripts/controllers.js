@@ -14,7 +14,7 @@ angular.module('confusionApp')
                     $scope.dishes = response;
                     },
                     function (response) {
-                    $scope.message = 'Error: ' + response.status + ' ' + response.statusText;
+                    $scope.dishes = 'Error: ' + response.status + ' ' + response.statusText;
                     }
                 );
 
@@ -64,7 +64,7 @@ angular.module('confusionApp')
 
                     if ($scope.feedback.agree && ($scope.feedback.mychannel === '')) {
                         $scope.invalidChannelSelection = true;
-                        console.log('Cannot submit form');
+                        alert('Cannot submit form');
                     }
                     else {
 
@@ -94,7 +94,7 @@ angular.module('confusionApp')
                     $scope.dish = response;
                     },
                     function (response) {
-                    $scope.message = 'Error: ' + response.status + ' ' + response.statusText;
+                    $scope.dish = 'Error: ' + response.status + ' ' + response.statusText;
                     }
                 );
             
@@ -117,7 +117,6 @@ angular.module('confusionApp')
             };
         }])
 
-        // implement the IndexController and About Controller here
         .controller('IndexController',['$scope','menuFactory','corporateFactory', function($scope,menuFactory,corporateFactory){
            menuFactory.getDish().get({ id: 0 })
                 .$promise.then(
@@ -125,7 +124,7 @@ angular.module('confusionApp')
                     $scope.featuredDish = response;
                     },
                     function (response) {
-                    $scope.message = 'Error: ' + response.status + ' ' + response.statusText;
+                    $scope.featuredDish = 'Error: ' + response.status + ' ' + response.statusText;
                     }
                 );
            
@@ -136,7 +135,7 @@ angular.module('confusionApp')
                     $scope.Promotion = response;
                     },
                     function (response) {
-                    $scope.message = 'Error: ' + response.status + ' ' + response.statusText;
+                    $scope.Promotion = 'Error: ' + response.status + ' ' + response.statusText;
                     }
                 );
 
@@ -147,11 +146,9 @@ angular.module('confusionApp')
                     $scope.chief = response;
                     },
                     function (response) {
-                    $scope.message = 'Error: ' + response.status + ' ' + response.statusText;
+                    $scope.chief = 'Error: ' + response.status + ' ' + response.statusText;
                     }
                 );
-
-        //    $scope.chief = corporateFactory.getLeader(3);
 
             $scope.showDetails = true;
         }])
@@ -159,12 +156,12 @@ angular.module('confusionApp')
         .controller('AboutController',function($scope,corporateFactory){
             corporateFactory.getLeader().query()
             .$promise.then(
-                    function (response) {
+                function (response) {
                     $scope.AllChiefs = response;
-                    },
-                    function (response) {
-                    $scope.message = 'Error: ' + response.status + ' ' + response.statusText;
-                    }
+                },
+                function (response) {
+                    $scope.AllChiefs = 'Error: ' + response.status + ' ' + response.statusText;
+                }
                 );
             $scope.showDetails = true;
         })
