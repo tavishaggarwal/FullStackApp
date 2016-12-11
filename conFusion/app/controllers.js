@@ -8,7 +8,15 @@ angular.module('confusionApp')
             $scope.filtText = '';
             $scope.showDetails = false;
 
-            $scope.dishes= menuFactory.getDishes();
+            menuFactory.getDish().query()
+                .$promise.then(
+                    function (response) {
+                    $scope.dishes = response;
+                    },
+                    function (response) {
+                    $scope.message = 'Error: ' + response.status + ' ' + response.statusText;
+                    }
+                );
 
                         
             $scope.select = function(setTab) {
@@ -79,9 +87,16 @@ angular.module('confusionApp')
 
         .controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', function($scope, $stateParams, menuFactory) {
 
-            var dish= menuFactory.getDish(parseInt($stateParams.id,10));
-            
-            $scope.dish = dish;
+
+                menuFactory.getDish().get({ id: $stateParams.id })
+                .$promise.then(
+                    function (response) {
+                    $scope.dish = response;
+                    },
+                    function (response) {
+                    $scope.message = 'Error: ' + response.status + ' ' + response.statusText;
+                    }
+                );
             
         }])
 
@@ -104,7 +119,16 @@ angular.module('confusionApp')
 
         // implement the IndexController and About Controller here
         .controller('IndexController',['$scope','menuFactory','corporateFactory', function($scope,menuFactory,corporateFactory){
-            $scope.featuredDish = menuFactory.getDish(0);
+           menuFactory.getDish().get({ id: 0 })
+                .$promise.then(
+                    function (response) {
+                    $scope.featuredDish = response;
+                    },
+                    function (response) {
+                    $scope.message = 'Error: ' + response.status + ' ' + response.statusText;
+                    }
+                );
+           
             
             $scope.Promotion = menuFactory.getPromotion().get({ id: 0 })
                 .$promise.then(
